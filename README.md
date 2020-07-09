@@ -19,7 +19,7 @@ references
 [link2](https://github.com/ros-perception/perception_pcl/blob/melodic-devel/pcl_ros/tools/pcd_to_pointcloud.cpp)
 
 pcd file: 31291-416168-.pcd
-image of pcd file ![](/images/ver1.png =200x)
+image of pcd file ![](/images/ver1.png =250x200)
 
 For a single
 ```sh
