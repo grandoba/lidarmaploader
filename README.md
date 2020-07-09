@@ -34,8 +34,18 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 * publish NxN grid of pointcloud.
 
 #### TEST 1: see how fast it becomes as the size of N increases
-* 월드컵북로의 경우
+* 월드컵북로의 경우 (memory size)
 
+| Grid Size   | mean        | std         | max         | min           |
+| :---:       | :----:      | :----:      |    :----:   |   :----:      |
+| 3x3         | 31          | 38          | 283         |  0            |
+| 5x5         | 84          | 82          | 539         |  0            |
+| 7x7         | 159         | 135         | 786         |  0            |
+| 9x9         | 252         | 190         | 1033        |  0            |
+| 11x11       | 360         | 240         | 1202        |  0            |
+| 13x13       | 480         | 283         | 1351        |  0            |
+
+* Speed test
 | Grid Size   | mean        | std         | max         | min           |
 | :---:       | :----:      | :----:      |    :----:   |   :----:      |
 | 3x3         | 31          | 38          | 283         |  0            |
