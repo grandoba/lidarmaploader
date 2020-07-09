@@ -35,11 +35,16 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 
 #### TEST 1: see how fast it becomes as the size of N increases
 * 월드컵북로의 경우
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
+
+| Grid Size   | mean        | std         | max         | min           |
+| :---:       | :----:      | :----:      |    :----:   |   :----:      |
+| 3x3         | 31          | 38          | 283         |  0            |
+| 5x5         | 84          | 82          | 539         |  0            |
+| 7x7         | 159         | 135         | 786         |  0            |
+| 9x9         | 252         | 190         | 1033        |  0            |
+| 11x11       | 360         | 240         | 1202        |  0            |
+| 13x13       | 480         | 283         | 1351        |  0            |
+
 #### TEST 2
 * Load and save cloud and publish || load each time and publish?
 
