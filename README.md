@@ -30,3 +30,20 @@ rosrun lidarmaploader lidarmaploader_subNpub
 rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 10
 ```
 ### ver2
+* publish NxN grid of pointcloud.
+
+#### TEST 1: see how fast it becomes as the size of N increases
+* 월드컵북로의 경우
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+#### TEST 2
+* Load and save cloud and publish || load each time and publish?
+
+
+
+### ver3
+* dynamically add grids to global map
+* assume moving current GPS value
