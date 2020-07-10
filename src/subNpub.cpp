@@ -21,11 +21,10 @@ class pcd_to_grid_to_PointCloud {
   std::string frame_id;
   // latched topic enabled/disabled
   bool latch;
-  // pointcloud message and publisher
+  // pointcloud message and publisher/subscriber
   sensor_msgs::PointCloud2 cloud;
   ros::Publisher pub;
-  // timer to handle republishing
-  ros::Timer timer;
+  ros::Subscriber sub;
   // center grid location according to GPS
   std::string currGrid = "a";
   std::string prevGrid = "b";
@@ -84,16 +83,9 @@ public:
         // init publisher
         pub = nh.advertise<sensor_msgs::PointCloud2>(cloud_topic, 1, latch);
         // treat publishing once as a special case to interval publishing
-        ros::Subscriber sub = nh.subscribe("chatter", 1000, &pcd_to_grid_to_PointCloud::chatterCallback, this);
+        sub = nh.subscribe("chatter", 1000, &pcd_to_grid_to_PointCloud::chatterCallback, this);
         // set frame_id
         cloud.header.frame_id = frame_id;
-    }
-
-    void print_config_info() {
-        ROS_INFO_STREAM("Recognized the following parameters");
-        ROS_INFO_STREAM(" * frame_id: " << frame_id);
-        ROS_INFO_STREAM(" * topic_name: " << cloud_topic);
-        ROS_INFO_STREAM(" * latch: " << std::boolalpha << latch);
     }
 
 };
@@ -101,11 +93,9 @@ public:
 
 int main (int argc, char** argv) {
     // init ROS
-    ros::init(argc, argv, "pcd_to_grid_to_PointCloud");
+    ros::init(argc, argv, "subNpub"); //pcd_to_grid_to_PointCloud
     // set up node
     pcd_to_grid_to_PointCloud node;
-    // print info about effective configuration settings
-    node.print_config_info();
     // initialize run
     node.init_run();
 
@@ -123,3 +113,36 @@ int main (int argc, char** argv) {
     }
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
