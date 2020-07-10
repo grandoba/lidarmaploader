@@ -14,20 +14,18 @@ class pcd_to_grid_to_PointCloud {
 
   ros::NodeHandle nh;
   // the topic to publish at, will be overwritten to give the remapped name
-  std::string cloud_topic;
-  // source file name, will be overwritten to produce actually configured file
-  std::string file_name;
+  std::string cloud_topic = "rechatter";
   // tf2 frame_id
-  std::string frame_id;
+  std::string frame_id = "/base_link";
   // latched topic enabled/disabled
-  bool latch;
+  bool latch = false;
   // pointcloud message and publisher/subscriber
   sensor_msgs::PointCloud2 cloud;
   ros::Publisher pub;
   ros::Subscriber sub;
   // center grid location according to GPS
-  std::string currGrid = "a";
-  std::string prevGrid = "b";
+  std::string currGrid = "none";
+  std::string prevGrid = "none";
 
   void chatterCallback(const novatel_gps_msgs::NovatelXYZ::ConstPtr& msg) {
     float x,y,z;
@@ -47,6 +45,8 @@ class pcd_to_grid_to_PointCloud {
     }
 
     // Check if current location (GPS) is at another 10mx10m grid.
+    ROS_INFO_STREAM("currGrid: "<<currGrid);
+    ROS_INFO_STREAM("prevGrid: "<<prevGrid);
     if ( currGrid != prevGrid ){
 
       sensor_msgs::PointCloud2 tmp_cloud;
@@ -68,12 +68,20 @@ class pcd_to_grid_to_PointCloud {
       prevGrid = currGrid;
     }
 
-    // update timestamp and publish
+
+    ROS_INFO("here we are");
+
+    // update timestamp and frame_id
     cloud.header.stamp = ros::Time::now();
-    ROS_DEBUG_STREAM_ONCE("Publishing pointcloud");
-    ROS_DEBUG_STREAM_ONCE(" * number of points: " << cloud.width * cloud.height);
-    ROS_DEBUG_STREAM_ONCE(" * frame_id: " << cloud.header.frame_id);
-    ROS_DEBUG_STREAM_ONCE(" * topic_name: " << cloud_topic);
+    cloud.header.frame_id = frame_id;
+
+    // check
+    ROS_INFO_STREAM("Publishing pointcloud");
+    ROS_INFO_STREAM(" * number of points: " << cloud.width * cloud.height);
+    ROS_INFO_STREAM(" * frame_id: " << cloud.header.frame_id);
+    ROS_INFO_STREAM(" * topic_name: " << cloud_topic);
+
+    // publish
     pub.publish(cloud);
   }
 
@@ -84,8 +92,6 @@ public:
         pub = nh.advertise<sensor_msgs::PointCloud2>(cloud_topic, 1, latch);
         // treat publishing once as a special case to interval publishing
         sub = nh.subscribe("chatter", 1000, &pcd_to_grid_to_PointCloud::chatterCallback, this);
-        // set frame_id
-        cloud.header.frame_id = frame_id;
     }
 
 };
@@ -100,17 +106,17 @@ int main (int argc, char** argv) {
     node.init_run();
 
     // blocking call to process callbacks etc
-    // ros::spin();
-    ros::Rate loop_rate(10); //same as "loop_rate = 10" in Hz
-    while ( ros::ok() )
-    {
-      ros::Time start_t = ros::Time::now();
-      ros::spinOnce();
-      ros::Time fin_t = ros::Time::now();
-      double dt = (fin_t - start_t).toSec();
-      ROS_INFO("time for 1 callback is [%f]",dt);
-      loop_rate.sleep();
-    }
+    ros::spin();
+    // ros::Rate loop_rate(10); //same as "loop_rate = 10" in Hz
+    // while ( ros::ok() )
+    // {
+    //   ros::Time start_t = ros::Time::now();
+    //   ros::spinOnce();
+    //   ros::Time fin_t = ros::Time::now();
+    //   double dt = (fin_t - start_t).toSec();
+    //   ROS_INFO("time for 1 callback is [%f]",dt);
+    //   loop_rate.sleep();
+    // }
     return 0;
 }
 
