@@ -47,6 +47,7 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 | 13x13       | 480         | 283         | 1351        |  0            |
 
 * Speed test
+
 | Grid Size   | mean        | std         | max         | min           |
 | :---:       | :----:      | :----:      |    :----:   |   :----:      |
 | 3x3         | 31          | 38          | 283         |  0            |
@@ -63,3 +64,4 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 ### ver3
 * dynamically add grids to global map
 * assume moving current GPS value
+* Assign file access directory for pcl::io::loadPCD() function.
