@@ -32,6 +32,7 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 ```
 ### ver2
 * publish NxN grid of pointcloud.
+* ver2 now takes the form of the second reference link: "pcd_to_pointcloud".
 
 #### TEST 1: see how fast it becomes as the size of N increases
 * 월드컵북로의 경우 (memory size)
@@ -57,6 +58,7 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 
 #### TEST 2
 * Load and save cloud and publish || load each time and publish?
+
 
 
 
