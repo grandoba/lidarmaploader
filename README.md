@@ -57,9 +57,7 @@ rosrun tf static_transform_publisher -312913 -4161689 -40 0 0 0 1 map base_link 
 | 13x13       | 480         | 283         | 1351        |  0            |
 
 #### TEST 2
-* Load and save cloud and publish || load each time and publish?
-
-
+* Load and save cloud and publish -> successful
 
 
 ### ver3
